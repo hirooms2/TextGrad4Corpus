@@ -46,7 +46,10 @@ CONVERSATION_START_INSTRUCTION_BASE = (
 )
 
 OBJECTIVE_INSTRUCTION_BASE = (
-    "<OBJECTIVE_FUNCTION>Your goal is to give feedback and criticism to the variable given the above evaluation output. "
+    "<OBJECTIVE_FUNCTION>Your goal is to provide feedback and constructive criticism on the given variable based on the evaluation output above. "
+    "First, consider whether the passages require any modification. Do not feel obligated to make changes unless they are clearly necessary. "
+    "If you believe revisions are needed, modify or add passages only when it is strictly justified. Avoid any changes that do not directly contribute to improving the evaluation metric, as we aim to minimize unnecessary edits. "
+    "Do not remove passages solely because they are unrelated to user preferences. "
     "Our only goal is to improve the above metric, and nothing else. </OBJECTIVE_FUNCTION>\n\n"
 )
 
