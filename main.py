@@ -4,25 +4,31 @@ import time
 from openai import OpenAI
 import textgrad as tg
 
-OPENAI_API_KEY = " "
+OPENAI_API_KEY = ""
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 ## 합친 prompt
 problem_task_combined = """Problem Statement:
-You will be given a few dialogs between users and a system, a recommended item relevant to their context.
-Also, a list of passages is given.  
+You will be given a dialog between users and a system, a recommended item relevant to their context.
+Also, a list of passages describing the item is also provided.  
 Your task is to refine the passages to better describe the features of the recommended item.  
-The list of passages should comprehensively cover the item's features that users might show a positive preference for in any conversational context.  
-Each passage should be concise, not overly long, and should begin with the title of the item, such as "Inception (2010), director Christopher Nolan."
+The final list of passages should comprehensively cover the item's features that users might show a positive preference for in various conversational contexts.
+Each passage should focus on only one distinct feature of the item.
+The passages must be concise, not overly long, and should begin with the title of the item, such as "Inception (2010) director Christopher Nolan."
+Ensure that the passages are not redundant and that each describes a clearly separated and meaningful aspect of the item.
 
 Input:
-A few dialogs and a recommended item.
+A dialog, a recommended item and a list of passages describing features of the item.
 
 [Dialogs]
 {dialog}
 
-[Recommended Items]
+[Recommended Item]
 {target_item}
+
+[List of passages]
+{passages}
+
 
 Output:
 A list of passages"""
@@ -76,7 +82,7 @@ Passage 3. Inception (2010) genre Action, Adventure, Sci-Fi, Thriller – the fi
 Passage 4. Inception (2010) is celebrated for its intricate, multi-layered story structure that invites viewers to solve the mystery on repeat viewings, catching subtle clues and fully appreciating the film’s complex narrative and suspense elements."""
 
 dialog_str = '\n\n'.join([f"Dialog {d_idx+1}\n{dialog}" for d_idx, dialog in enumerate(dialogs)])
-problem_text_revision = problem_task_combined.format(dialog=dialog_str, target_item=target_item)
+problem_text_revision = problem_task_combined.format(dialog=dialog_str, target_item=target_item, passages=passage_list)
 print(problem_text_revision)
 
 initial_solution = initial_solution.format(passages=passage_list)
