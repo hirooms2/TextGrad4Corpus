@@ -4,7 +4,7 @@ import time
 from openai import OpenAI
 import textgrad as tg
 
-OPENAI_API_KEY = ""
+OPENAI_API_KEY = " "
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 ## 합친 prompt
